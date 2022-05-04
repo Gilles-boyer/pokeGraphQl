@@ -1,10 +1,14 @@
 <template>
   <v-container fill-height class="Pokemon">
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="center" class="mb-5">
       <!--Evolution-->
-      <v-col cols="1">
+      <v-col cols="12" md="12" xl="1">
         <v-card color="second" v-if="preEvol.sprite">
-          <v-img :src="preEvol.sprite" rounded></v-img>
+          <v-img
+            :src="preEvol.sprite"
+            rounded
+            class="hidden-lg-and-down"
+          ></v-img>
 
           <v-card-title class="justify-center primary--text">
             {{ preEvol.species }}
@@ -21,7 +25,7 @@
       </v-col>
 
       <!--Image Pokemon-->
-      <v-col cols="5">
+      <v-col cols="12" md="6" xl="5">
         <v-card class="mx-auto">
           <v-img
             max-width="250"
@@ -29,7 +33,7 @@
             class="mx-auto"
             :src="srcImage"
           ></v-img>
-          <v-item-group mandatory>
+          <v-item-group mandatory class="hidden-sm-and-down">
             <v-container>
               <v-row>
                 <v-col v-for="n in images" :key="n" cols="12" md="3">
@@ -52,7 +56,7 @@
       </v-col>
 
       <!--detail Pokemon-->
-      <v-col cols="5">
+      <v-col cols="12" md="6" xl="5">
         <v-card shaped>
           <v-card-title
             background-color="primary"
@@ -183,9 +187,13 @@
       </v-col>
 
       <!--Evolution-->
-      <v-col cols="1">
+      <v-col cols="12" md="12" xl="1">
         <v-card color="second" v-if="evolution.sprite">
-          <v-img :src="evolution.sprite" rounded></v-img>
+          <v-img
+            :src="evolution.sprite"
+            rounded
+            class="hidden-lg-and-down"
+          ></v-img>
 
           <v-card-title class="justify-center primary--text">
             {{ evolution.species }}
@@ -271,6 +279,10 @@ export default {
         { type: "Fairy", color: "pink" },
         { type: "Water", color: "#00B0FF" },
         { type: "Poison", color: "#9575CD" },
+        { type: "Fighting", color: "#FF6F00" },
+        { type: "Ghost", color: "#9FA8DA" },
+        { type: "Bug", color: "#FFCDD2" },
+        { type: "Dragon", color: "#6A1B9A" },
       ];
       var color;
       tab.forEach((element) => {

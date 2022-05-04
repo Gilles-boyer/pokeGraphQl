@@ -1,7 +1,20 @@
 <template>
   <v-container class="justify-center" fill-height>
     <v-row align="center" justify="center">
-      <v-col align-self="center" class="my-auto">
+      <v-col cols="11" xl="6" lg="6" md="7" sm="8">
+        <v-card>
+          <v-card-title>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-pokeball"
+              label="Search Pokemon"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+        </v-card>
+      </v-col>
+      <v-col align-self="center" class="my-auto" cols="12">
         <v-sheet elevation="8" height="520" shaped>
           <v-toolbar flat color="primary" class="mb-3" shaped>
             <v-toolbar-title class="white--text font-weight-bold mx-auto">
@@ -10,7 +23,10 @@
             >
           </v-toolbar>
           <v-slide-group v-model="model" active-class="success" show-arrows>
-            <v-slide-item v-for="(pokemon, index) in pokemons" :key="index">
+            <v-slide-item
+              v-for="(pokemon, index) in filterPokemons"
+              :key="index"
+            >
               <v-card color="second" class="mx-3 my-1" height="400" width="213">
                 <v-img
                   :src="pokemon.image"
@@ -71,9 +87,17 @@ export default {
       }
     },
   },
+  computed: {
+    filterPokemons() {
+      return this.pokemons.filter((pokemon) => {
+        return pokemon.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
+  },
   data() {
     return {
       model: null,
+      search: "",
       overlay: true,
       pokemons: [],
     };
