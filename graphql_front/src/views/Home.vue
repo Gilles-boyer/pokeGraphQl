@@ -41,6 +41,9 @@
         </v-sheet>
       </v-col>
     </v-row>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -63,11 +66,15 @@ export default {
       this.pokemons = res.data.result.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
+      if (this.pokemon != []) {
+        this.overlay = false;
+      }
     },
   },
   data() {
     return {
       model: null,
+      overlay: true,
       pokemons: [],
     };
   },

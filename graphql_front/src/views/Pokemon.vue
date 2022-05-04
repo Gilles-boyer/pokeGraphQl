@@ -13,7 +13,7 @@
             Pre-Evolution
           </v-card-subtitle>
           <v-card-actions class="pa-1 justify-center">
-            <v-btn color="primary" @click="changePokemon(preEvol.key)">
+            <v-btn color="primary" @click="changePokemon(preEvol.key)" text>
               <v-icon left> mdi-pokeball</v-icon> Explore
             </v-btn>
           </v-card-actions>
@@ -202,6 +202,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -242,6 +245,9 @@ export default {
     async init() {
       var res = await ApiPok.show(this.$route.params.name);
       this.pokemon = res.data;
+      if (this.pokemon) {
+        this.overlay = false;
+      }
       this.chargeImages(res.data);
       if (res.data.evolutions != null) {
         this.initEvol(res.data);
@@ -306,6 +312,7 @@ export default {
   },
   data() {
     return {
+      overlay: true,
       show: false,
       pokemon: {
         abilities: {
