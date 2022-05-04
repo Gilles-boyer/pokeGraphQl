@@ -2,7 +2,6 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const paginate = require("express-paginate");
 
 // keep this before all routes that will use pagination
 
@@ -10,7 +9,20 @@ var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/api");
 
 var app = express();
-app.use(paginate.middleware(10, 50));
+app.use(express.static("public/dist"));
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    );
+    next();
+});
 
 app.use(logger("dev"));
 app.use(express.json());

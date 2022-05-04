@@ -12,7 +12,8 @@ module.exports.getLinkImagePokemon = (name) => {
     return api.post("/", {
         query: `{
             getPokemon(pokemon:${name}) {
-                  sprite
+              sprite
+              flavorTexts { flavor }
             }
           }`,
     });
@@ -35,6 +36,7 @@ module.exports.getPokemon = (name) => {
           backSprite
           shinyBackSprite
           evolutionLevel
+          flavorTexts { flavor }
           evolutions {
             key
             num

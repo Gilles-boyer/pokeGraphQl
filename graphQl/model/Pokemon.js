@@ -9,20 +9,29 @@ class Pokemon {
     async getListNamePok() {
         var res = await apiPok.getListNamePokemon();
         res.data.data.getAllPokemonSpecies.forEach(async(element) => {
-            element = this.verifyCharPokemon(["-", "'", " ", ".", ","], element);
+            var ele;
+            ele = this.verifyCharPokemon(["-", "'", " ", ".", ","], element);
             try {
-                var result = await apiPok.getLinkImagePokemon(
-                    element.toLowerCase().trim()
-                );
+                var result = await apiPok.getLinkImagePokemon(ele.toLowerCase().trim());
             } catch (e) {
                 // console.log(e.message);
             }
 
             if (result) {
-                this.listPokemon.push({
-                    name: element,
-                    image: result.data.data.getPokemon.sprite,
-                });
+                if (result.data) {
+                    if (result.data.data) {
+                        if (result.data.data.getPokemon) {
+                            if (result.data.data.getPokemon.flavorTexts.length > 0) {
+                                this.listPokemon.push({
+                                    key: ele.toLowerCase().trim(),
+                                    name: element,
+                                    image: result.data.data.getPokemon.sprite,
+                                    text: result.data.data.getPokemon.flavorTexts[0].flavor,
+                                });
+                            }
+                        }
+                    }
+                }
             }
         });
     }
